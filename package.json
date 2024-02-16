@@ -1,0 +1,12 @@
+{
+  "name": "s55_purrflix",
+  "version": "1.0.0",
+  "description": "My Project Description\r PurrFlix\r List of Absurd cat videos\r This is an ASAP project by Shreya from squad55.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
