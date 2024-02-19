@@ -4,7 +4,7 @@ const port = process.env.PUBLIC_PORT;
 
 // define the ping route
 app.get('/ping', (req, res)=>{
-    res.send('pong');
+    res.send('RESPONSE');
 });
 
 if (require.main === module) {
