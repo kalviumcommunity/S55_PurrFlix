@@ -14,7 +14,7 @@ const startConnect = async () => {
     } catch (err) {
     console.error("Error connecting to MongoDB");
     status = "error";
-    }
+    } 
 };
 
 const stopConnect = async () => {
