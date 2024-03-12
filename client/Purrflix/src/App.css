@@ -1,0 +1,43 @@
+*{
+  margin: 0%;
+  padding: 0%;
+}
+
+body{
+  background-image: url("https://img.freepik.com/free-photo/blank-concrete-wall-white-color-texture-background_158595-6481.jpg?w=996&t=st=1710244849~exp=1710245449~hmac=8cb2df3057fb7a770ef10ad3942c72fb60c053bde60eb9d00b6d78f3144e1191");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.navbar {
+  /* Navbar styles */
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  margin-top: 20%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  align-items: center;
+  font-size: x-large;
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
+
+.search {
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color:white(0, 0, 0);
+  color: black;
+  margin: 20px;
+}
