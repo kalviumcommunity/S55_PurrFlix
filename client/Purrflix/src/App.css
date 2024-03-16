@@ -1,35 +1,33 @@
-*{
-  margin: 0%;
-  padding: 0%;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
 }
 
-body{
-  background-image: url("https://img.freepik.com/free-photo/blank-concrete-wall-white-color-texture-background_158595-6481.jpg?w=996&t=st=1710244849~exp=1710245449~hmac=8cb2df3057fb7a770ef10ad3942c72fb60c053bde60eb9d00b6d78f3144e1191");
+body {
+  background-image: url("https://img.freepik.com/free-vector/cute-playful-footprint-pattern-background-fauna-fun_1017-44713.jpg?w=996&t=st=1710565115~exp=1710565715~hmac=a513cfe5be6158b66ec5a525177e104a8585684704957ec0e0ca5751053c9e51");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .navbar {
-  /* Navbar styles */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
 }
 
-.container{
+.heading-search {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
 }
 
-.content {
-  margin-top: 20%;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: auto;
-  align-items: center;
-  font-size: x-large;
-  text-align: center;
-  color: rgb(0, 0, 0);
+.heading-search h1 {
+  color: white;
+  margin: 0;
 }
 
 .search {
@@ -37,7 +35,53 @@ body{
   padding: 10px;
   border-radius: 5px;
   border: none;
-  background-color:white(0, 0, 0);
+  background-color: rgba(255, 255, 255, 0.9); 
   color: black;
-  margin: 20px;
+}
+
+.video-container {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 100px; 
+  color: #fff;
+}
+
+.video-card {
+  width: 300px;
+  padding: 20px;
+  background-color: #3b6473;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.video-card img {
+  height: 400px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.video-details {
+  margin-top: 10px;
+}
+
+.video-details p {
+  margin: 5px 0;
+}
+
+.btn {
+  margin-top: 5px;
+  padding: 8px 20px;
+  background-color: #ffffff;
+  color:#3b6473;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #588291;
+  color: #fff;
 }
