@@ -1,6 +1,28 @@
-// import React from 'react';
+import { useState, useEffect } from 'react';
+// Assuming you're using Axios for HTTP requests
+import axios from 'axios';
 
 const Home = () => {
+    // State to hold the fetched data
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        // Fetch data when the component mounts
+        const fetchData = async () => {
+            try {
+                // Fetch data from the URL
+                const response = await axios.get('https://s55-purrflix-1.onrender.com/get');
+
+                // Set the fetched data to state
+                setData(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData(); // Call the fetch function
+    }, []); // Empty dependency array to run the effect only once on mount
+
     return (
         <>
             <div className="navbar">
@@ -11,16 +33,19 @@ const Home = () => {
             </div>
             <div className="container">
                 <div className="video-container">
-                    <div className="video-card">
-                        <img src="https://p16-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ea7ec7ec14004497a2bf3113792acffe~tplv-photomode-zoomcover:720:720.jpeg?x-expires=1710676800&x-signature=hOjLIvbc1Ke4TQn4iuxVmcFEkis%3D" alt="Video Thumbnail" />
-                        <div className="video-details">
-                            <p>Time - 0:30</p>
-                            <p>Category - Funny</p>
+                    {/* Display fetched data */}
+                    {data && data.map((video, index) => (
+                        <div className="video-card" key={index}>
+                            <img src={video.thumbnail} alt="Video Thumbnail" />
+                            <div className="video-details">
+                                <p>Time - {video.time}</p>
+                                <p>Category - {video.category}</p>
+                            </div>
+                            <a href={video.link} target="_blank" rel="noopener noreferrer">
+                                <button className='btn'>Play</button>
+                            </a> 
                         </div>
-                        <a href="https://youtube.com/shorts/ej1aOUDSOOI?feature=shared" target="_blank" rel="noopener noreferrer">
-                        <button className='btn'>Play</button>
-                        </a> 
-                    </div>
+                    ))}
                 </div>
             </div>
         </>
