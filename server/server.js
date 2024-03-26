@@ -3,8 +3,11 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const routes = require('./routes'); 
 const app = express();
+const cors = require('cors');
 const PORT = 3000;
 let status = "disconnected";
+
+app.use(cors());
 
 dotenv.config();
 
