@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Entity} = require('./schema')
+const { Entity } = require('./schema');
 
 router.use(express.json());
 
