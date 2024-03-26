@@ -1,10 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const {Entity} = require('./schema')
 
 router.use(express.json());
 
 router.get('/get', async (req, res) => {
-    res.send("get request")
+    try {
+        const entities = await Entity.find();
+        res.json(entities);
+    } catch (err) {
+        console.error('Error in GET request:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 router.post('/post',(req,res)=>{
