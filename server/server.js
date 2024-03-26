@@ -6,8 +6,6 @@ const app = express();
 const PORT = 3000;
 let status = "disconnected";
 
-
-
 dotenv.config();
 
 const startConnect = async () => {
@@ -27,14 +25,14 @@ const stopConnect = async () => {
   console.log("Disconnected from MongoDB");
 };
 
-app.use('/', routes);
+app.use(routes);
 
 app.get('/', (req, res) => {
   res.send(status);
 });
 
+startConnect(); 
 app.listen(PORT, async () => {
-  await startConnect(); 
   console.log(`Server is running on port ${PORT}`);
 });
 

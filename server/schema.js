@@ -18,11 +18,11 @@ const CatSchema = new mongoose.Schema({
         required: true
     },
     duration: {
-        type: Number,
+        type: String,
         required: true
     }
 });
 
-const Entity = mongoose.model('purrflixSite-collections', CatSchema);
+const Entity = mongoose.model('purrflixsite-collections', CatSchema);
 
 module.exports = { Entity }; 
