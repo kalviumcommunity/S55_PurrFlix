@@ -14,18 +14,35 @@ router.get('/get', async (req, res) => {
     }
 });
 
-router.post('/post',(req,res)=>{
-    console.log(req.body)
-    res.json(req.body)
-})
+router.post('/post', async (req, res) => {
+    try {
+        console.log(req.body);
+        const entity = new Entity(req.body);
+        const savedEntity = await entity.save();
+        res.json(savedEntity);
+    } catch (err) {
+        console.error('Error in POST request:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
-router.put('/put',(req,res)=>{
-    res.send("put request")
-})
+router.put('/put', async (req, res) => {
+    try {
+        res.send("PUT request");
+    } catch (err) {
+        console.error('Error in PUT request:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
-router.delete('/delete',(req,res)=>{
-    res.send("delete request")
-})
-
+router.delete('/delete', async (req, res) => {
+    try {
+        
+        res.send("DELETE request");
+    } catch (err) {
+        console.error('Error in DELETE request:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 module.exports = router;
