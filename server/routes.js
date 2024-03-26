@@ -6,8 +6,8 @@ router.use(express.json());
 
 router.get('/get', async (req, res) => {
     try {
-        const entities = await Entity.find();
-        res.json(entities);
+        const entities = await Entity.find({});
+        res.send(entities);
     } catch (err) {
         console.error('Error in GET request:', err);
         res.status(500).json({ error: 'Internal Server Error' });
