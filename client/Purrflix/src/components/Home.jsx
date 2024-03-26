@@ -18,7 +18,7 @@ const Home = () => {
                             <p>Category - Funny</p>
                         </div>
                         <a href="https://youtube.com/shorts/ej1aOUDSOOI?feature=shared" target="_blank" rel="noopener noreferrer">
-                            <button className='btn'>Play</button>
+                        <button className='btn'>Play</button>
                         </a> 
                     </div>
                 </div>
