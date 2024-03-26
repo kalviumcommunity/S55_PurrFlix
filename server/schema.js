@@ -19,17 +19,8 @@ const CatSchema = new mongoose.Schema({
     },
     duration: {
         type: Number,
-        required: true,
-        min: 0,
-        max: 5
-    },
-    img:{ 
-        type: String
-    },
-    created_by:{
-        type: String,
-        required: true  
-    } 
+        required: true
+    }
 });
 
 const Entity = mongoose.model('purrflixSite-collections', CatSchema);
