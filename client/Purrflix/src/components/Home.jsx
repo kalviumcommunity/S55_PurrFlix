@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Home = () => {
@@ -24,6 +25,7 @@ const Home = () => {
                     <h1>PURRFLIX</h1>
                     <input className="search" type="text" placeholder="Search..." />
                 </div>
+                <Link to="/add-entity" className="btn">Add Entity</Link>
             </div>
             <div className="container">
                 <div className="video-container">
