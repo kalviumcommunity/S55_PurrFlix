@@ -14,14 +14,12 @@ router.get('/get', async (req, res) => {
     }
 });
 
-router.post('/post', async (req, res) => {
+router.post('/add', async (req, res) => {
     try {
-        console.log(req.body);
-        const entity = new Entity(req.body);
-        const savedEntity = await entity.save();
-        res.json(savedEntity);
+        const newEntity = await Entity.create(req.body);
+        res.status(201).json(newEntity);
     } catch (err) {
-        console.error('Error in POST request:', err);
+        console.error('Error adding entity:', err);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
