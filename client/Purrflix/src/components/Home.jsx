@@ -1,27 +1,21 @@
 import { useState, useEffect } from 'react';
-// Assuming you're using Axios for HTTP requests
 import axios from 'axios';
 
 const Home = () => {
-    // State to hold the fetched data
-    const [data, setData] = useState(null);
+    const [videos, setVideos] = useState([]);
 
     useEffect(() => {
-        // Fetch data when the component mounts
         const fetchData = async () => {
             try {
-                // Fetch data from the URL
                 const response = await axios.get('https://s55-purrflix-1.onrender.com/get');
-
-                // Set the fetched data to state
-                setData(response.data);
+                setVideos(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
 
-        fetchData(); // Call the fetch function
-    }, []); // Empty dependency array to run the effect only once on mount
+        fetchData();
+    }, []);
 
     return (
         <>
@@ -33,17 +27,17 @@ const Home = () => {
             </div>
             <div className="container">
                 <div className="video-container">
-                    {/* Display fetched data */}
-                    {data && data.map((video, index) => (
+                    {videos.map((video, index) => (
                         <div className="video-card" key={index}>
-                            <img src={video.thumbnail} alt="Video Thumbnail" />
+                            <img src={video.image} alt="Video Thumbnail" />
+                            <h2>{video.title}</h2>
                             <div className="video-details">
-                                <p>Time - {video.time}</p>
+                                <p>Time - {video.duration}</p>
                                 <p>Category - {video.category}</p>
                             </div>
-                            <a href={video.link} target="_blank" rel="noopener noreferrer">
+                            <a href={video.videourl} target="_blank" rel="noopener noreferrer">
                                 <button className='btn'>Play</button>
-                            </a> 
+                            </a>
                         </div>
                     ))}
                 </div>
