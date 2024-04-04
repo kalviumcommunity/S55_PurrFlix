@@ -25,7 +25,9 @@ const Home = () => {
                     <h1>PURRFLIX</h1>
                     <input className="search" type="text" placeholder="Search..." />
                 </div>
-                <Link to="/add-entity" className="btn">Add Entity</Link>
+            </div>
+            <div className='add'>
+                <Link to="/add-entity" className="add-btn">Add Entity</Link>
             </div>
             <div className="container">
                 <div className="video-container">

@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         title: '',
         category: '',
-        videoUrl: '',
-        image: '', 
-        duration: '' 
+        videourl: '',
+        image: '',
+        duration: ''
     });
 
     const handleChange = (e) => {
@@ -21,21 +23,22 @@ const Form = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         try {
             const response = await axios.post('https://s55-purrflix-1.onrender.com/add', formData);
             console.log('Response from server:', response.data);
-            const navigate = useNavigate();
             setFormData({
                 title: '',
                 category: '',
-                videoUrl: '',
-                image: '', 
-                duration: '' 
+                videourl: '',
+                image: '',
+                duration: ''
             });
             navigate('/');
+            window.alert('Entity added successfully!');
         } catch (error) {
             console.error('Error posting data:', error);
+            window.alert('Error adding entity. Please try again.');
         }
     };
 
@@ -45,52 +48,52 @@ const Form = () => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Title:</label>
-                    <input 
-                        type="text" 
-                        name="title" 
-                        value={formData.title} 
-                        onChange={handleChange} 
-                        required 
+                    <input
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
                     <label>Category:</label>
-                    <input 
-                        type="text" 
-                        name="category" 
-                        value={formData.category} 
-                        onChange={handleChange} 
-                        required 
+                    <input
+                        type="text"
+                        name="category"
+                        value={formData.category}
+                        onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
                     <label>Video URL:</label>
-                    <input 
-                        type="text" 
-                        name="videoUrl" 
-                        value={formData.videoUrl} 
-                        onChange={handleChange} 
-                        required 
+                    <input
+                        type="text"
+                        name="videourl"
+                        value={formData.videourl}
+                        onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
                     <label>Image URL:</label>
-                    <input 
-                        type="text" 
-                        name="image" 
-                        value={formData.image} 
-                        onChange={handleChange} 
-                        required 
+                    <input
+                        type="text"
+                        name="image"
+                        value={formData.image}
+                        onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
                     <label>Duration:</label>
-                    <input 
-                        type="text" 
-                        name="duration" 
-                        value={formData.duration} 
-                        onChange={handleChange} 
-                        required 
+                    <input
+                        type="text"
+                        name="duration"
+                        value={formData.duration}
+                        onChange={handleChange}
+                        required
                     />
                 </div>
                 <button type="submit">Add</button>
