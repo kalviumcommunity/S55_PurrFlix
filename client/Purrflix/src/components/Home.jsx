@@ -50,11 +50,11 @@ const Home = () => {
                                 <p>Time - {video.duration}</p>
                                 <p>Category - {video.category}</p>
                             </div>
-                            <button onClick={() => handleDelete(video._id)} className='delete-btn'>🗑</button>
+                            <button onClick={() => handleDelete(video._id)} className='delete-btn'>🗑️</button>
                             <a href={video.videourl} target="_blank" rel="noopener noreferrer">
                                 <button className='btn'>Play</button>
                             </a>
-                            <Link to={`/update-entity/${video._id}`} className="update-btn">⚙</Link>
+                            <Link to={`/update-entity/${video._id}`} className="update-btn">⚙️</Link>
                         </div>
                     ))}
                 </div>

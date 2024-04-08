@@ -76,7 +76,7 @@ body {
 }
 
 .btn {
-  margin: 5px;
+  margin-inline: 50px;
   padding: 8px 20px;
   background-color: #ffffff;
   color: #3b6473;
@@ -113,8 +113,8 @@ body {
 }
 
 .add-btn:hover{
-  background-color: #ffffff; 
-  color: #3b6473; 
+  background-color: #457688; 
+  color:#ffffff; 
 }
 
 
