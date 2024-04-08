@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const UpdateEntityForm = () => {
+    const navigate = useNavigate(); 
     const { id } = useParams();
     const [formData, setFormData] = useState({
         title: '',
@@ -33,6 +34,9 @@ const UpdateEntityForm = () => {
         e.preventDefault();
         try {
             await axios.put(`https://s55-purrflix-1.onrender.com/put/${id}`, formData);
+            navigate('/'); 
+            window.alert('Entity added successfully!');
+
         } catch (error) {
             console.error('Error updating entity:', error);
         }
