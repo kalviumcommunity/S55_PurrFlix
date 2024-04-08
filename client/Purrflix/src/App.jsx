@@ -1,16 +1,15 @@
-// import React from 'react';
-import {Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Form from './components/Form';
-import './App.css'
+import UpdateEntityForm from './components/UpdateEntityForm';
+import './App.css';
 
 const App = () => {
     return (
         <Routes>
-            
-                <Route exact path="/" element={<Home/>} />
-                <Route path="/add-entity" element={<Form/>} />
-            
+            <Route exact path="/" element={<Home />} />
+            <Route path="/add-entity" element={<Form />} />
+            <Route path="/update-entity/:id" element={<UpdateEntityForm />} /> 
         </Routes>
     );
 }
