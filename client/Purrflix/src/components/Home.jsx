@@ -6,17 +6,28 @@ const Home = () => {
     const [videos, setVideos] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('https://s55-purrflix-1.onrender.com/get');
-                setVideos(response.data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
         fetchData();
     }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(`https://s55-purrflix-1.onrender.com/get`);
+            setVideos(response.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`https://s55-purrflix-1.onrender.com/delete/${id}`);
+            setVideos(prevVideos => prevVideos.filter(video => video._id !== id)); 
+            window.alert('Entity removed successfully');
+        } catch (error) {
+            console.error('Error deleting entity:', error);
+            window.alert('Error deleting entity. Please try again later.');
+        }
+    };
 
     return (
         <>
@@ -39,9 +50,11 @@ const Home = () => {
                                 <p>Time - {video.duration}</p>
                                 <p>Category - {video.category}</p>
                             </div>
+                            <button onClick={() => handleDelete(video._id)} className='delete-btn'>🗑</button>
                             <a href={video.videourl} target="_blank" rel="noopener noreferrer">
                                 <button className='btn'>Play</button>
                             </a>
+                            <Link to={`/update-entity/${video._id}`} className="update-btn">⚙</Link>
                         </div>
                     ))}
                 </div>
