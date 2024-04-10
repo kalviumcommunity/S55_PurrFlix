@@ -18,7 +18,7 @@ const UpdateEntityForm = () => {
             try {
                 const response = await axios.get(`https://s55-purrflix-1.onrender.com/get/${id}`);
                 setFormData(response.data);
-            } catch (error) {
+            } catch (error) { 
                 console.error('Error fetching entity data:', error);
             }
         };
