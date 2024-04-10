@@ -5,21 +5,25 @@ const Joi = require('joi');
 
 router.use(express.json());
 
-const entitySchema = Joi.object({
-    title: Joi.string().required(),
-    category: Joi.string().required(),
-    videourl: Joi.string().required(),
-    image: Joi.string().required(),
-    duration: Joi.string().required()
+const COOKIE_NAME = 'user';
+
+const isAuthenticated = (req, res, next) => {
+    if (req.cookies[COOKIE_NAME]) {
+        next();
+    } else {
+        res.status(401).json({ error: 'Unauthorized' });
+    }
+};
+
+router.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    res.cookie(COOKIE_NAME, username, { httpOnly: true }).sendStatus(200);
 });
 
-const validateEntity = (req, res, next) => {
-    const { error } = entitySchema.validate(req.body);
-    if (error) {
-        return res.status(400).json({ error: error.details[0].message });
-    }
-    next();
-};
+router.post('/logout', isAuthenticated, (req, res) => {
+    res.clearCookie(COOKIE_NAME).sendStatus(200);
+});
 
 router.get('/get', async (req, res) => {
     try {

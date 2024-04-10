@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const Home = () => {
     const [videos, setVideos] = useState([]);
+    const [loggedIn, setLoggedIn] = useState(false); 
 
     useEffect(() => {
         fetchData();
@@ -29,6 +30,17 @@ const Home = () => {
         }
     };
 
+    const handleLogout = async () => {
+        try {
+            await axios.post('/logout');
+            setLoggedIn(false);
+            window.alert('Logged out successfully');
+        } catch (error) {
+            console.error('Error logging out:', error);
+            window.alert('Error logging out. Please try again.');
+        }
+    };
+
     return (
         <>
             <div className="navbar">
@@ -36,6 +48,11 @@ const Home = () => {
                     <h1>PURRFLIX</h1>
                     <input className="search" type="text" placeholder="Search..." />
                 </div>
+                {loggedIn ? (
+                    <button onClick={handleLogout}>Logout</button>
+                ) : (
+                    <Link to="/login">Login</Link>
+                )}
             </div>
             <div className='add'>
                 <Link to="/add-entity" className="add-btn">Add Entity</Link>

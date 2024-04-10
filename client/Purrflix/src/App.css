@@ -1,3 +1,4 @@
+
 * {
   margin: 0;
   padding: 0;
@@ -76,7 +77,7 @@ body {
   margin-top: 7em; 
 }
 
-.btn{
+.btn {
   padding: 0.5em 1.5em;
   background-color: #ffffff;
   margin-inline: 0.9em;
@@ -100,7 +101,10 @@ body {
 
 .btn:hover,
 .update-btn:hover,
-.delete-btn:hover {
+.delete-btn:hover,
+.btn:focus, /* Added */
+.update-btn:focus, /* Added */
+.delete-btn:focus { /* Added */
   background-color: #588291;
   color: #fff;
 }
@@ -181,3 +185,4 @@ body {
   background-color: #588291;
   color: #fff;
 }
+
