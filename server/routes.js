@@ -15,6 +15,22 @@ const isAuthenticated = (req, res, next) => {
     }
 };
 
+const entitySchema = Joi.object({
+    title: Joi.string().required(),
+    category: Joi.string().required(),
+    videourl: Joi.string().required(),
+    image: Joi.string().required(),
+    duration: Joi.string().required()
+});
+
+const validateEntity = (req, res, next) => {
+    const { error } = entitySchema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ error: error.details[0].message });
+    }
+    next();
+};
+
 router.post('/login', (req, res) => {
     const { username, password } = req.body;
 
