@@ -2,15 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const { router } = require('./routes'); 
-const cookieParser = require('cookie-parser'); // Import cookie-parser middleware
+const cookieParser = require('cookie-parser'); 
 const app = express();
 const cors = require('cors');
 const PORT = process.env.PORT || 3000; 
 let status = "disconnected";
 
 app.use(cors());
-app.use(cookieParser()); // Use cookie-parser middleware
-
+app.use(express.json()); 
+app.use(cookieParser()); 
 dotenv.config();
 
 const startConnect = async () => {
