@@ -1,10 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const routes = require('./routes'); 
+const { router } = require('./routes'); 
 const app = express();
 const cors = require('cors');
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; 
 let status = "disconnected";
 
 app.use(cors());
@@ -17,7 +17,7 @@ const startConnect = async () => {
     status = "connected"; 
     console.log("Connected to MongoDB");
   } catch (err) {
-    console.error("Failed to connect to MongoDB:");
+    console.error("Failed to connect to MongoDB:", err); 
     status = "error";
   }
 };
@@ -28,7 +28,7 @@ const stopConnect = async () => {
   console.log("Disconnected from MongoDB");
 };
 
-app.use(routes);
+app.use(router); 
 
 app.get('/', (req, res) => {
   res.send(status);
