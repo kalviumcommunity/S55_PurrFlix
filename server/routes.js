@@ -26,12 +26,10 @@ const validateEntity = (req, res, next) => {
 router.post('/login', (req, res) => {
     const { username } = req.body;
 
-    // Set the username as a cookie
     res.cookie(COOKIE_NAME, username, { httpOnly: true }).sendStatus(200);
 });
 
 router.post('/logout', (req, res) => {
-    // Clear the cookie
     res.clearCookie(COOKIE_NAME).sendStatus(200);
 });
 
