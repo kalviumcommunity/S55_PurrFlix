@@ -1,14 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const { router } = require('./routes'); 
-const cookieParser = require('cookie-parser');
+const { router } = require('./routes');
+const cookieParser = require('cookie-parser'); 
 const app = express();
 const cors = require('cors');
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT || 3000;
 let status = "disconnected";
 
 app.use(cors());
+app.use(express.json()); 
 app.use(cookieParser()); 
 dotenv.config();
 
@@ -29,7 +30,7 @@ const stopConnect = async () => {
   console.log("Disconnected from MongoDB");
 };
 
-app.use(router); 
+app.use(router);
 
 app.get('/', (req, res) => {
   res.send(status);
