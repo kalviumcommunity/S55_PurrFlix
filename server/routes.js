@@ -7,14 +7,6 @@ router.use(express.json());
 
 const COOKIE_NAME = 'user';
 
-const isAuthenticated = (req, res, next) => {
-    if (req.cookies[COOKIE_NAME]) {
-        next();
-    } else {
-        res.status(401).json({ error: 'Unauthorized' });
-    }
-};
-
 const entitySchema = Joi.object({
     title: Joi.string().required(),
     category: Joi.string().required(),
@@ -32,12 +24,14 @@ const validateEntity = (req, res, next) => {
 };
 
 router.post('/login', (req, res) => {
-    const { username, password } = req.body;
+    const { username } = req.body;
 
+    // Set the username as a cookie
     res.cookie(COOKIE_NAME, username, { httpOnly: true }).sendStatus(200);
 });
 
-router.post('/logout', isAuthenticated, (req, res) => {
+router.post('/logout', (req, res) => {
+    // Clear the cookie
     res.clearCookie(COOKIE_NAME).sendStatus(200);
 });
 
@@ -95,7 +89,4 @@ router.delete('/delete/:id', async (req, res, next) => {
     }
 });
 
-module.exports = {
-    router,
-    validateEntity 
-};
+module.exports = router;
