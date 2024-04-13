@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+
 const Home = () => {
     const [videos, setVideos] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false); 
@@ -53,6 +54,11 @@ const Home = () => {
                 ) : (
                     <Link to="/login">Login</Link>
                 )}
+
+                <Link to="/signup">
+                    <button>Sign Up</button>
+                </Link>
+
             </div>
             <div className='add'>
                 <Link to="/add-entity" className="add-btn">Add Entity</Link>
