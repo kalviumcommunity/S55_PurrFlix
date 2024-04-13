@@ -3,8 +3,10 @@ import Home from './components/Home';
 import Form from './components/Form';
 import UpdateEntityForm from './components/UpdateEntityForm';
 import Login from './components/Login';
-import Logout from './components/Logout'; 
+// import Logout from './components/Logout'; 
 import './App.css';
+import Signup from './components/Signup';
+// import Signup from './components/Signup';
 
 const App = () => {
     return (
@@ -13,7 +15,9 @@ const App = () => {
             <Route path="/add-entity" element={<Form />} />
             <Route path="/update-entity/:id" element={<UpdateEntityForm />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/logout" element={<Logout />} /> 
+            {/* <Route path="/logout" element={<Logout />} />  */}
+            <Route path="/signup" element={<Signup />} /> 
+            
         </Routes>
     );
 }
