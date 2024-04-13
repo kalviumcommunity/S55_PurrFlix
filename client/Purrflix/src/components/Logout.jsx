@@ -8,8 +8,8 @@ const Logout = () => {
     useEffect(() => {
         const logout = async () => {
             try {
-                await axios.post('/logout');
-                navigate('/login'); 
+                await axios.post('https://s55-purrflix-1.onrender.com/logout');
+                navigate('/login');
             } catch (error) {
                 console.error('Error logging out:', error);
                 window.alert('Error logging out. Please try again.');
@@ -19,7 +19,7 @@ const Logout = () => {
         logout();
     }, [navigate]);
 
-    return null; 
+    return null;
 };
 
 export default Logout;
