@@ -17,8 +17,8 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('/login', credentials);
-            navigate('/'); 
+            await axios.post('https://s55-purrflix-1.onrender.com/login', credentials);
+            navigate('/');
         } catch (error) {
             console.error('Error logging in:', error);
             window.alert('Error logging in. Please try again.');
