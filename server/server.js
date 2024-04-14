@@ -12,6 +12,7 @@ app.use(cors());
 app.use(express.json()); 
 app.use(cookieParser()); 
 dotenv.config();
+const secretKey = process.env.SECRET_KEY;
 
 const startConnect = async () => {
   try {
