@@ -102,9 +102,9 @@ body {
 .btn:hover,
 .update-btn:hover,
 .delete-btn:hover,
-.btn:focus, /* Added */
-.update-btn:focus, /* Added */
-.delete-btn:focus { /* Added */
+.btn:focus, 
+.update-btn:focus, 
+.delete-btn:focus { 
   background-color: #588291;
   color: #fff;
 }
@@ -136,15 +136,6 @@ body {
   cursor: pointer;
 }
 
-/* .login {
-  padding: 0.5em 1.5em;
-  background-color: #3b6473;
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-} */
 
 .add-btn:hover {
   background-color: #457688;
