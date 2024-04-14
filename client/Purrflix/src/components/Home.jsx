@@ -49,20 +49,24 @@ const Home = () => {
                     <h1>PURRFLIX</h1>
                     <input className="search" type="text" placeholder="Search..." />
                 </div>
-                {loggedIn ? (
-                    <button onClick={handleLogout}>Logout</button>
-                ) : (
-                    <Link to="/login">Login</Link>
-                )}
-
-                <Link to="/signup">
-                    <button>Sign Up</button>
-                </Link>
-
             </div>
+
             <div className='add'>
-                <Link to="/add-entity" className="add-btn">Add Entity</Link>
+                <div className='add-btns'>
+                    <Link to="/add-entity" className="add-btn">Add Entity</Link>
+
+                    {loggedIn ? (
+                        <button onClick={handleLogout} >Logout</button>
+                    ) : (
+                        <Link to="/login" className='login'>Login</Link>
+                    )}
+
+                    <Link to="/signup">
+                        <button className='login'>Sign Up</button>
+                    </Link>
+                </div>
             </div>
+
             <div className="container">
                 <div className="video-container">
                     {videos.map((video, index) => (

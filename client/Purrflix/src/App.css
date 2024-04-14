@@ -118,7 +118,15 @@ body {
   align-items: center;
 }
 
-.add-btn {
+.add-btns {
+  margin-left: 70em;
+}
+
+.add-btn,
+.login {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bolder;
+  margin: 10px;
   padding: 0.5em 1.5em;
   background-color: #3b6473;
   color: #ffffff;
@@ -127,6 +135,16 @@ body {
   border: none;
   cursor: pointer;
 }
+
+/* .login {
+  padding: 0.5em 1.5em;
+  background-color: #3b6473;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+} */
 
 .add-btn:hover {
   background-color: #457688;
@@ -186,3 +204,73 @@ body {
   color: #fff;
 }
 
+.login-signup-container {
+  margin: 5em auto;
+  width: 80%;
+  max-width: 600px;
+  background-color: rgba(59, 100, 115, 0.8);
+  padding: 2em;
+  border-radius: 1em;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
+}
+
+.login-signup-container h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.login-signup-container label {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  display: block;
+}
+
+.login-signup-container input {
+  width: 100%;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  border: none;
+  margin-bottom: 1em;
+}
+
+.login-signup-container .button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-signup-container .error-message {
+  color: #ff4136;
+  margin-top: 1em;
+}
+
+.login-signup-container button {
+  padding: 0.5em 1.5em;
+  background-color: #ffffff;
+  color: #3b6473;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.login-signup-container button:hover {
+  background-color: #588291;
+  color: #fff;
+}
+
+.login-signup-container p {
+  color: white;
+  text-align: center;
+  margin-top: 1em;
+}
+
+.login-signup-container p a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.login-signup-container p a:hover {
+  color: #fff;
+}
