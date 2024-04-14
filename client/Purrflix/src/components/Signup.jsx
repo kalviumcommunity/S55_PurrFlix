@@ -15,7 +15,7 @@ function Signup() {
                 setSignupError("Password should be more than 5 characters");
                 return;
             }
-            const response = await axios.post(`https://s55-purrflix-1.onrender.com/signup, { username, password }`);
+            const response = await axios.post(`https://s55-purrflix-1.onrender.com/signup`, { username, password });
             if (response.status === 201) {
                 sessionStorage.setItem('login', true);
                 sessionStorage.setItem('signupSuccess', 'Signup successful');
@@ -35,7 +35,7 @@ function Signup() {
     }
 
     return (
-        <div className="login-container">
+        <div className="login-signup-container">
             <h2>Sign Up</h2>
             <form onSubmit={handleSubmit}>
                 <div>
