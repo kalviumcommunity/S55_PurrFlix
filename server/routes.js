@@ -17,7 +17,8 @@ const entitySchema = Joi.object({
     category: Joi.string().required(),
     videourl: Joi.string().required(),
     image: Joi.string().required(),
-    duration: Joi.string().required()
+    duration: Joi.string().required(),
+    created_by: Joi.string().required()
 });
 
 const validateEntity = (req, res, next) => {
