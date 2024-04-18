@@ -10,7 +10,8 @@ const Form = () => {
         category: '',
         videourl: '',
         image: '',
-        duration: ''
+        duration: '',
+        created_by: sessionStorage.getItem('username')
     });
 
     const handleChange = (e) => {
@@ -27,14 +28,6 @@ const Form = () => {
         try {
             const response = await axios.post('https://s55-purrflix-1.onrender.com/add', formData);
             console.log('Response from server:', response.data);
-            setFormData({
-                title: '',
-                category: '',
-                videourl: '',
-                image: '',
-                duration: '',
-                created_by: sessionStorage.getItem('username')
-            });
             navigate('/');
             window.alert('Entity added successfully!');
         } catch (error) {
