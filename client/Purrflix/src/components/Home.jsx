@@ -2,23 +2,39 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
 const Home = () => {
     const [videos, setVideos] = useState([]);
-    const [loggedIn, setLoggedIn] = useState(false); 
+    const [users, setUsers] = useState([]);
+    const [selectedUser, setSelectedUser] = useState('');
+    const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`https://s55-purrflix-1.onrender.com/get`, {
+                    params: {
+                        created_by: selectedUser
+                    }
+                });
+                setVideos(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get(`https://s55-purrflix-1.onrender.com/get`);
-            setVideos(response.data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
+        fetchData(); // Call fetchData inside useEffect
+
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get('/users');
+                setUsers(response.data);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        };
+
+        fetchUsers(); // Call fetchUsers inside useEffect
+    }, [selectedUser]); // Include selectedUser as a dependency
 
     const handleDelete = async (id) => {
         try {
@@ -49,6 +65,15 @@ const Home = () => {
                     <h1>PURRFLIX</h1>
                     <input className="search" type="text" placeholder="Search..." />
                 </div>
+            </div>
+
+            <div className='filter'>
+                <select onChange={(e) => setSelectedUser(e.target.value)}>
+                    <option value="">Select User</option>
+                    {users.map((user, index) => (
+                        <option key={index} value={user.username}>{user.username}</option>
+                    ))}
+                </select>
             </div>
 
             <div className='add'>
