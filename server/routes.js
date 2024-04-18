@@ -1,117 +1,148 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+const express = require('express');
+const router = express.Router();
+const { Entity } = require('./schema');
+const Joi = require('joi');
+const jwt = require('jsonwebtoken');
+const { userInfo } = require('./userschema');
 
-const Home = () => {
-    const [videos, setVideos] = useState([]);
-    const [users, setUsers] = useState([]);
-    const [selectedUser, setSelectedUser] = useState('');
-    const [loggedIn, setLoggedIn] = useState(false);
+router.use(express.json());
 
-    useEffect(() => {
-        fetchData();
-        fetchUsers();
-    }, []);
+const COOKIE_NAME = 'user';
+const SECRET_KEY = process.env.SECRET_KEY;
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get(`https://s55-purrflix-1.onrender.com/get`, {
-                params: {
-                    created_by: selectedUser
-                }
-            });
-            setVideos(response.data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
+const entitySchema = Joi.object({
+    title: Joi.string().required(),
+    category: Joi.string().required(),
+    videourl: Joi.string().required(),
+    image: Joi.string().required(),
+    duration: Joi.string().required(),
+    created_by: Joi.string().required()
+});
+
+const validateEntity = (req, res, next) => {
+    const { error } = entitySchema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ error: error.details[0].message });
+    }
+    next();
+};
+
+router.post('/auth', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = {
+            "username": username,
+            "password": password
         }
-    };
+        const SECRET_KEY = jwt.sign(user, process.env.SECRET_KEY);
+        res.cookie('token', SECRET_KEY, { maxAge: 365 * 24 * 60 * 60 * 1000 });
+        res.json({ "accessToken": SECRET_KEY });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
-    const fetchUsers = async () => {
-        try {
-            const response = await axios.get('/users');
-            setUsers(response.data);
-        } catch (error) {
-            console.error('Error fetching users:', error);
+router.post('/signup', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const newUser = await userInfo.create({
+            username: username,
+            password: password
+        });
+        res.status(201).json(newUser);
+    } catch (err) {
+        console.error('Error in user signup:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await userInfo.findOne({ username: username, password: password });
+
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid username / password' });
         }
-    };
+        res.status(200).json({ user });
 
-    const handleDelete = async (id) => {
-        try {
-            await axios.delete(`https://s55-purrflix-1.onrender.com/delete/${id}`);
-            setVideos(prevVideos => prevVideos.filter(video => video._id !== id)); 
-            window.alert('Entity removed successfully');
-        } catch (error) {
-            console.error('Error deleting entity:', error);
-            window.alert('Error deleting entity. Please try again later.');
+    } catch (err) {
+        console.error('Error in user login:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.post('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.status(200).json({ message: 'Logout successful' });
+});
+
+router.get('/get', async (req, res, next) => {
+    try {
+        let query = {};
+        if (req.query.created_by) {
+            query.created_by = req.query.created_by;
         }
-    };
+        const entities = await Entity.find(query);
+        res.send(entities);
+    } catch (err) {
+        next(err);
+    }
+});
 
-    const handleLogout = async () => {
-        try {
-            await axios.post('/logout');
-            setLoggedIn(false);
-            window.alert('Logged out successfully');
-        } catch (error) {
-            console.error('Error logging out:', error);
-            window.alert('Error logging out. Please try again.');
+router.get('/get/:id', async (req, res, next) => {
+    try {
+        const entity = await Entity.findById(req.params.id);
+        if (!entity) {
+            return res.status(404).json({ error: 'Entity not found' });
         }
-    };
+        res.send(entity);
+    } catch (err) {
+        next(err);
+    }
+});
 
-    return (
-        <>
-            <div className="navbar">
-                <div className="heading-search">
-                    <h1>PURRFLIX</h1>
-                    <input className="search" type="text" placeholder="Search..." />
-                </div>
-            </div>
+router.post('/add', validateEntity, async (req, res, next) => {
+    try {
+        const newEntity = await Entity.create(req.body);
+        res.status(201).json(newEntity);
+    } catch (err) {
+        next(err);
+    }
+});
 
-            <div className='filter'>
-                <select onChange={(e) => setSelectedUser(e.target.value)}>
-                    <option value="">Select User</option>
-                    {users.map((user, index) => (
-                        <option key={index} value={user.username}>{user.username}</option>
-                    ))}
-                </select>
-            </div>
+router.put('/put/:id', async (req, res, next) => {
+    try {
+        const updatedEntity = await Entity.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedEntity) {
+            return res.status(404).json({ error: 'Entity not found' });
+        }
+        res.status(200).json(updatedEntity);
+    } catch (err) {
+        next(err);
+    }
+});
 
-            <div className='add'>
-                <div className='add-btns'>
-                    <Link to="/add-entity" className="add-btn">Add Entity</Link>
+router.delete('/delete/:id', async (req, res, next) => {
+    try {
+        const deletedEntity = await Entity.findByIdAndDelete(req.params.id);
+        if (!deletedEntity) {
+            return res.status(404).json({ error: 'Entity not found' });
+        }
+        res.status(200).json({ message: 'Entity deleted successfully' });
+    } catch (err) {
+        next(err);
+    }
+});
 
-                    {loggedIn ? (
-                        <button onClick={handleLogout} >Logout</button>
-                    ) : (
-                        <Link to="/login" className='login'>Login</Link>
-                    )}
+router.get('/users', async (req, res, next) => {
+    try {
+        const users = await userInfo.find({}, 'username');
+        res.status(200).json(users);
+    } catch (err) {
+        next(err);
+    }
+});
 
-                    <Link to="/signup">
-                        <button className='login'>Sign Up</button>
-                    </Link>
-                </div>
-            </div>
-
-            <div className="container">
-                <div className="video-container">
-                    {videos.map((video, index) => (
-                        <div className="video-card" key={index}>
-                            <img src={video.image} alt="Video Thumbnail" />
-                            <h2>{video.title}</h2>
-                            <div className="video-details">
-                                <p>Time - {video.duration}</p>
-                                <p>Category - {video.category}</p>
-                            </div>
-                            <button onClick={() => handleDelete(video._id)} className='delete-btn'>🗑️</button>
-                            <a href={video.videourl} target="_blank" rel="noopener noreferrer">
-                                <button className='btn'>Play</button>
-                            </a>
-                            <Link to={`/update-entity/${video._id}`} className="update-btn">⚙️</Link>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </>
-    );
-}
-
-export default Home;
+module.exports = router;
