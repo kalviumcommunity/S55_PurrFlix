@@ -3,12 +3,14 @@ const router = express.Router();
 const { Entity } = require('./schema');
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
-const { userInfo } = require('./userschema');
+const {userInfo}= require('./userschema');
+
 
 router.use(express.json());
 
 const COOKIE_NAME = 'user';
 const SECRET_KEY = process.env.SECRET_KEY;
+
 
 const entitySchema = Joi.object({
     title: Joi.string().required(),
@@ -27,20 +29,20 @@ const validateEntity = (req, res, next) => {
     next();
 };
 
-router.post('/auth', async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const user = {
-            "username": username,
-            "password": password
-        }
-        const SECRET_KEY = jwt.sign(user, process.env.SECRET_KEY);
-        res.cookie('token', SECRET_KEY, { maxAge: 365 * 24 * 60 * 60 * 1000 });
-        res.json({ "accessToken": SECRET_KEY });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Internal Server Error' });
+
+router.post('/auth', async(req,res) => {
+    try{const {username,password} = req.body
+    const user = {
+        "username" : username,
+        "password" : password
     }
+    const SECRET_KEY = jwt.sign(user,process.env.SECRET_KEY)
+    res.cookie('token',SECRET_KEY,{maxAge:365*24*60*60*1000})
+    res.json({"acsessToken" : SECRET_KEY})
+}catch(err){
+    console.error(err)
+    res.status(500).json({error:'Internal Server Error'})
+}
 });
 
 router.post('/signup', async (req, res) => {
@@ -80,11 +82,7 @@ router.post('/logout', (req, res) => {
 
 router.get('/get', async (req, res, next) => {
     try {
-        let query = {};
-        if (req.query.created_by) {
-            query.created_by = req.query.created_by;
-        }
-        const entities = await Entity.find(query);
+        const entities = await Entity.find({});
         res.send(entities);
     } catch (err) {
         next(err);
@@ -131,15 +129,6 @@ router.delete('/delete/:id', async (req, res, next) => {
             return res.status(404).json({ error: 'Entity not found' });
         }
         res.status(200).json({ message: 'Entity deleted successfully' });
-    } catch (err) {
-        next(err);
-    }
-});
-
-router.get('/users', async (req, res, next) => {
-    try {
-        const users = await userInfo.find({}, 'username');
-        res.status(200).json(users);
     } catch (err) {
         next(err);
     }
