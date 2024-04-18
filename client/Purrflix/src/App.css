@@ -77,6 +77,18 @@ body {
   margin-top: 7em; 
 }
 
+.dropdown-container {
+  margin-right: 1em;
+}
+
+.dropdown {
+  padding: 0.5em;
+  border-radius: 0.5em;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+}
+
 .btn {
   padding: 0.5em 1.5em;
   background-color: #ffffff;
