@@ -21,15 +21,12 @@ function Login() {
         e.preventDefault();
         
         try {
-            const response = await axios.post
-                "https://s55-purrflix-1.onrender.com/login",
-                { username, password }
-            ;
+            const response = await axios.post ("https://s55-purrflix-1.onrender.com/login", { username, password });
         
-            console.log("Login response:", response);
+            // console.log("Login response:", response);
         
             if (response.status === 200) {
-                console.log(response);
+                console.log("response");
                 sessionStorage.setItem("login", true);
                 sessionStorage.setItem("username", username);
                 window.location.href = "/";
