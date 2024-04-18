@@ -20,6 +20,10 @@ const CatSchema = new mongoose.Schema({
     duration: {
         type: String,
         required: true
+    },
+    created_by: {
+        type: String,
+        required: true
     }
 });
 
