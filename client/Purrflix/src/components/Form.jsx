@@ -32,7 +32,8 @@ const Form = () => {
                 category: '',
                 videourl: '',
                 image: '',
-                duration: ''
+                duration: '',
+                created_by: sessionStorage.getItem('username')
             });
             navigate('/');
             window.alert('Entity added successfully!');
