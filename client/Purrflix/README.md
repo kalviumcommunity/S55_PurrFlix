@@ -9,5 +9,3 @@
 - Whether you're a cat lover, a video enthusiast, or just someone looking for a good laugh, you're in the right place!
 
 - This project is purely for entertainment and educational purposes.
-
-- Deployed Link- https://purrflix-3h9k72wy2-shreyas-projects-7402f9ed.vercel.app/ 
